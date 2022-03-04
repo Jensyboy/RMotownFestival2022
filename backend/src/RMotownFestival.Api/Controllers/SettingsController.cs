@@ -1,6 +1,6 @@
 ﻿
 using System.Net;
-
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -23,6 +23,12 @@ namespace RMotownFestival.Api.Controllers
         public IActionResult Get()
         {
             return Ok(_options);
+        }
+
+        [HttpGet("test")]
+        public ActionResult<string> Test()
+        {
+            return Ok("if you see this it works :p");
         }
     }
 }
