@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using RMotownFestival.Api.DAL;
 using RMotownFestival.Api.Data;
 using RMotownFestival.Api.Domain;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace RMotownFestival.Api.Controllers
 {
@@ -13,25 +14,39 @@ namespace RMotownFestival.Api.Controllers
     [ApiController]
     public class FestivalController : ControllerBase
     {
+        private readonly MotownDbContext _ctx;
+
+        public FestivalController(MotownDbContext context)
+        {
+            _ctx = context;
+        }
+
         [HttpGet("LineUp")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(Schedule))]
-        public ActionResult GetLineUp()
+        public async Task<ActionResult> GetLineUp()
         {
-            return Ok(FestivalDataSource.Current.LineUp);
+            var schedule = await _ctx.Schedules
+                .Include(s => s.Festival).ThenInclude(f => f.Stages)
+                .Include(f => f.Festival).ThenInclude(f => f.Artists)
+                .Include(i => i.Items)
+                .ToListAsync();
+            return Ok(schedule);
         }
 
         [HttpGet("Artists")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Artist>))]
-        public ActionResult GetArtists()
+        public async Task<ActionResult> GetArtists()
         {
-            return Ok(FestivalDataSource.Current.Artists);
+            var artists = await _ctx.Artists.ToListAsync();
+            return Ok(artists);
         }
 
         [HttpGet("Stages")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Stage>))]
-        public ActionResult GetStages()
+        public async Task<ActionResult> GetStages()
         {
-            return Ok(FestivalDataSource.Current.Stages);
+            var stages = await _ctx.Stages.ToListAsync();
+            return Ok(stages);
         }
 
         [HttpPost("Favorite")]
@@ -48,6 +63,5 @@ namespace RMotownFestival.Api.Controllers
             }
             return NotFound();
         }
-
     }
 }
