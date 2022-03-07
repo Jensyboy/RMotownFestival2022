@@ -27,7 +27,7 @@ namespace RMotownFestival.Api.Controllers
 
         [HttpGet("test")]
         public ActionResult<string> Test()
-        {
+        {   
             return Ok("if you see this it works :p");
         }
     }
