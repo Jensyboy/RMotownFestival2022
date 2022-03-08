@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~13.2.4",
     "@angular/platform-browser-dynamic": "~13.2.4",
     "@angular/router": "~13.2.4",
+    "@microsoft/applicationinsights-web": "^2.7.4",
     "rxjs": "~7.5.4",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
@@ -27,9 +28,9 @@
     "@angular-devkit/build-angular": "^13.2.4",
     "@angular/cli": "^13.2.4",
     "@angular/compiler-cli": "~13.2.4",
-    "@types/node": "^16.11.26",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^16.11.26",
     "codelyzer": "^6.0.2",
     "jasmine-core": "~3.10.0",
     "jasmine-spec-reporter": "~7.0.0",
