@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RMotownFestival.Api.DAL;
 using RMotownFestival.Api.Data;
@@ -15,10 +16,12 @@ namespace RMotownFestival.Api.Controllers
     public class FestivalController : ControllerBase
     {
         private readonly MotownDbContext _ctx;
+        private readonly TelemetryClient _temeletryClient;
 
-        public FestivalController(MotownDbContext context)
+        public FestivalController(MotownDbContext context, TelemetryClient telemetry )
         {
             _ctx = context;
+            _temeletryClient = telemetry;
         }
 
         [HttpGet("LineUp")]
@@ -35,8 +38,19 @@ namespace RMotownFestival.Api.Controllers
 
         [HttpGet("Artists")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(IEnumerable<Artist>))]
-        public async Task<ActionResult> GetArtists()
+        public async Task<ActionResult> GetArtists(bool? withRatings)
         {
+            if (withRatings.HasValue && withRatings.Value)
+            {
+                _temeletryClient.TrackEvent($"List of artists with ratings");
+            }
+            else
+            {
+                _temeletryClient.TrackEvent($"List of artists without ratings");
+
+            }
+
+
             var artists = await _ctx.Artists.ToListAsync();
             return Ok(artists);
         }

@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <ApplicationInsightsResourceId>/subscriptions/5b5672e2-e8b2-471b-b719-222e2eb0b2b9/resourceGroups/AzureTrackLab/providers/microsoft.insights/components/RMotownFestivalInsightsJVDS</ApplicationInsightsResourceId>
+    <UserSecretsId>c09b581e-1144-4650-b7fb-3284e57ea57b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.25.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
