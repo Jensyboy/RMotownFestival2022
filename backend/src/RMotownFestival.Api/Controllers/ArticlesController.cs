@@ -37,7 +37,7 @@ namespace RMotownFestival.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateArticle([FromQuery] bool random, [FromBody] Article article)
+        public async Task<IActionResult> CreateArticle([FromQuery] bool random, [FromBody] Article? article)
         {
             if (random)
             {
