@@ -16,19 +16,9 @@ namespace RMotownFestival.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration((context, config) =>
+            .ConfigureWebHostDefaults(webBuilder =>
             {
-
-                if (!context.HostingEnvironment.IsDevelopment())
-                {
-                    IConfiguration configuration = config.Build();
-
-                    var tokenProvider = new AzureServiceTokenProvider();
-                    var client = new KeyVaultClient(
-                        new KeyVaultClient.AuthenticationCallback(tokenProvider.KeyVaultTokenCallback));
-
-                    config.AddAzureKeyVault($"https://{configuration["AzureKeyVaultName"]}.vault.azure.net/", client, new DefaultKeyVaultSecretManager());
-                }
+                webBuilder.UseStartup<Startup>();
             });
     }
 }
