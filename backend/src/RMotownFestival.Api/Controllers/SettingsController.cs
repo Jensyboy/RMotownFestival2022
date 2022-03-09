@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-
+using Microsoft.FeatureManagement;
 using RMotownFestival.Api.Options;
 
 namespace RMotownFestival.Api.Controllers
@@ -13,9 +13,11 @@ namespace RMotownFestival.Api.Controllers
     public class SettingsController : ControllerBase
     {
         private readonly AppSettingsOptions _options;
-        public SettingsController(IOptions<AppSettingsOptions> options)
+        private readonly IFeatureManagerSnapshot _featureManager;
+        public SettingsController(IOptions<AppSettingsOptions> options, IFeatureManagerSnapshot featureManager)
         {
             _options = options.Value;
+            _featureManager = featureManager;
         }
 
         [HttpGet]
@@ -29,6 +31,17 @@ namespace RMotownFestival.Api.Controllers
         public ActionResult<string> Test()
         {   
             return Ok("if you see this it works :p");
+        }
+
+
+        [HttpGet("Features")]
+        public async Task<ActionResult> Features()
+        {
+            string message = await _featureManager.IsEnabledAsync("BuyTickets")
+                ? "The ticket sale has started. Okaaaaaaaaay lets go!"
+                : "Ai you are way too early eh kameraad";
+
+            return Ok(message);
         }
     }
 }
