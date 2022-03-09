@@ -55,8 +55,6 @@ namespace RMotownFestival.Api
 
             services.AddSingleton<BlobUtility>();
 
-            services.AddFeatureManagement();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -34,14 +34,6 @@ namespace RMotownFestival.Api.Controllers
         }
 
 
-        [HttpGet("Features")]
-        public async Task<ActionResult> Features()
-        {
-            string message = await _featureManager.IsEnabledAsync("BuyTickets")
-                ? "The ticket sale has started. Okaaaaaaaaay lets go!"
-                : "Ai you are way too early eh kameraad";
-
-            return Ok(message);
-        }
+        
     }
 }
