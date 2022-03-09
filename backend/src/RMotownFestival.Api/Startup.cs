@@ -42,7 +42,7 @@ namespace RMotownFestival.Api
                              );
                      }
             ));
-            services.AddApplicationInsightsTelemetry(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
+          //  services.AddApplicationInsightsTelemetry(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
 
             services.Configure<BlobSettingsOptions>(Configuration.GetSection("Storage"));
 
