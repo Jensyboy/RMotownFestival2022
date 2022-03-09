@@ -18,7 +18,7 @@ namespace RMotownFestival.Api
             Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration((context, config) =>
             {
-                
+
                 if (!context.HostingEnvironment.IsDevelopment())
                 {
                     IConfiguration configuration = config.Build();
@@ -29,18 +29,6 @@ namespace RMotownFestival.Api
 
                     config.AddAzureKeyVault($"https://{configuration["AzureKeyVaultName"]}.vault.azure.net/", client, new DefaultKeyVaultSecretManager());
                 }
-            })
-            .ConfigureWebHostDefaults(webBuilder =>
-            webBuilder.ConfigureAppConfiguration(config =>
-            {
-                var settings = config.Build();
-                var connection = settings.GetConnectionString("AppConfig");
-                config.AddAzureAppConfiguration(connection);
-               
-            }).UseStartup<Startup>())
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            });
     }
 }

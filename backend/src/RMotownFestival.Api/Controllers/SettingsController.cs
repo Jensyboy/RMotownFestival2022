@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.FeatureManagement;
 using RMotownFestival.Api.Options;
 
 namespace RMotownFestival.Api.Controllers
@@ -13,11 +12,10 @@ namespace RMotownFestival.Api.Controllers
     public class SettingsController : ControllerBase
     {
         private readonly AppSettingsOptions _options;
-        private readonly IFeatureManagerSnapshot _featureManager;
-        public SettingsController(IOptions<AppSettingsOptions> options, IFeatureManagerSnapshot featureManager)
+        //private readonly IFeatureManagerSnapshot _featureManager;
+        public SettingsController(IOptions<AppSettingsOptions> options)
         {
             _options = options.Value;
-            _featureManager = featureManager;
         }
 
         [HttpGet]
