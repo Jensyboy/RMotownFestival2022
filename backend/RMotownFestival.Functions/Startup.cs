@@ -16,7 +16,7 @@ namespace RMotownFestival.Functions
         public override void Configure(IFunctionsHostBuilder builder)
         {
              FunctionsHostBuilderContext context = builder.GetContext();
-
+      
             builder.Services.AddSingleton(p => new ComputerVisionClient(
                 new ApiKeyServiceClientCredentials(context.Configuration.GetValue<string>("ComputerVisionApiKey")))
             {

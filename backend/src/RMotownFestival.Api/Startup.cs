@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.FeatureManagement;
 using RMotownFestival.Api.Common;
 using RMotownFestival.Api.DAL;
 using RMotownFestival.Api.Options;
